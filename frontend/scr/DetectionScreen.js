@@ -21,7 +21,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { WebView } from 'react-native-webview';
 import Markdown from 'react-native-markdown-display';
 
-import { analyzeImage, chatWithAssistant } from '../services/api';
+import { analyzeImage, chatWithAssistant } from './api';
 
 const { width } = Dimensions.get('window');
 
