@@ -87,7 +87,7 @@ async def analyze_retinal_image(file: UploadFile = File(...)):
 
    if quality_result['quality_label'] == 'reject':
      print("STAGE 4: Image rejected by quality gate")
-          return JSONResponse(
+     return JSONResponse(
           status_code=200,
           content={
               'success': True,
