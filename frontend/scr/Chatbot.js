@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput, FlatList, KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
-import { chatWithAssistant } from '../services/api';
+import { chatWithAssistant } from './api';
 import Markdown from 'react-native-markdown-display';
 
 export default function Chatbot({ severity }) {
