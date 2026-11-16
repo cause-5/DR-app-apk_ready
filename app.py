@@ -73,40 +73,39 @@ async def analyze_retinal_image(file: UploadFile = File(...)):
    if content_type not in settings.allowed_image_types:
        raise HTTPException(status_code=400, detail=f'Unsupported file type: {content_type}')
 
+   print("STAGE 1: Analysis request received")
 
    image_bytes = await file.read()
-   if not image_bytes:
-       raise HTTPException(status_code=400, detail='Uploaded file is empty.')
-   if len(image_bytes) > settings.max_upload_mb * 1024 * 1024:
-       raise HTTPException(status_code=400, detail=f'File too large. Max is {settings.max_upload_mb} MB.')
-
+   print(f"STAGE 2: Image loaded, size={len(image_bytes)} bytes")
 
    try:
-       quality_result = quality_assessor.assess(image_bytes)
+     quality_result = quality_assessor.assess(image_bytes)
+     print("STAGE 3: Quality assessment completed")
    except Exception as exc:
-       raise HTTPException(status_code=400, detail=f'Could not process image for quality analysis: {exc}') from exc
-
+     print(f"QUALITY ERROR: {exc}")
+     raise
 
    if quality_result['quality_label'] == 'reject':
-       return JSONResponse(
-           status_code=200,
-           content={
-               'success': True,
-               'can_analyze': False,
-               'message': 'Image quality is too poor for reliable screening. Please retake the photo.',
-               'quality': quality_result,
-               'prediction': None,
-               'debug': {'stage': 'quality_gate'},
-           },
-       )
-
+     print("STAGE 4: Image rejected by quality gate")
+          return JSONResponse(
+          status_code=200,
+          content={
+              'success': True,
+              'can_analyze': False,
+              'message': 'Image quality is too poor for reliable screening. Please retake the photo.',
+              'quality': quality_result,
+              'prediction': None,
+              'debug': {'stage': 'quality_gate'},
+          },
+      )
 
    try:
-       prediction = dr_predictor.predict(image_bytes, quality_result)
+     print("STAGE 5: Starting DR prediction")
+     prediction = dr_predictor.predict(image_bytes, quality_result)
+     print("STAGE 6: DR prediction completed")
    except Exception as exc:
-       raise HTTPException(status_code=500, detail=f'Could not run DR prediction: {exc}') from exc
-
-
+    print(f"DR PREDICTION ERROR: {exc}")
+    raise
    return {
        'success': True,
        'can_analyze': True,
