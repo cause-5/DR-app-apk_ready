@@ -1,6 +1,11 @@
 # DR-app
 End-to-end app providing early screening of diabetic retinopathy (DR), fully build and designed front end, AI chatbot assistance, FAQs, etc.
 ---
+:::outdated rn. Now runs on render + eas. expo. Go to 
+
+
+https://dr-render.onrender.com/docs
+
 
 ## How to run on Mac in VS Code LOCAL
 
