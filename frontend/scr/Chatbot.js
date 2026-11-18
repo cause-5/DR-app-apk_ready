@@ -17,11 +17,11 @@ export default function Chatbot({ severity }) {
       let initialText = "Hello! I can help answer questions about diabetic retinopathy.";
       if (severity !== null && severity !== undefined) {
         if (severity >= 3) {
-          initialText = "I see your result shows high severity. Would you like an explanation?";
+          initialText = "I see your result shows high severity. Would you like to learn about next steps or more about what DR is?";
         } else if (severity > 0) {
           initialText = "I see your result shows some risk. Would you like to know more about the early stages of DR?";
         } else {
-          initialText = "Your result looks good, but always remember to get regular professional checkups. Any questions?";
+          initialText = "Your result looks good, but always remember to get regular professional checkups. Do you have any questions?";
         }
       }
       setMessages([{ id: Date.now().toString(), text: initialText, sender: 'bot' }]);
