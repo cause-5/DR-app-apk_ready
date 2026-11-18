@@ -85,7 +85,7 @@ function Particle({ x, y, size, delay }) {
   );
 }
 
-// The Mirrorball AI Orb
+// The Mirrorball Orb
 function MirrorballOrb({ spinFast }) {
   const rotateAnim = useRef(new Animated.Value(0)).current;
   const floatAnim = useRef(new Animated.Value(0)).current;
